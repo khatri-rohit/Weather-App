@@ -1,9 +1,8 @@
-import dotenv from "dotenv"
-
-
+import { API } from "./data.js";
+console.log("ROhit");
+// console.log(API);
 var myHeaders = new Headers();
-let key = "xauunvDe8N05BUCjZLPVgywDQh0FnsxT";
-myHeaders.append("apikey", key);
+myHeaders.append("apikey", "xauunvDe8N05BUCjZLPVgywDQh0FnsxT");
 
 var requestOptions = {
   method: "GET",
@@ -11,14 +10,7 @@ var requestOptions = {
   redirect: "follow",
 };
 
-fetch(
-  "https://api.tomorrow.io/v4/weather/realtime?location=ajmer",
-  requestOptions
-)
+fetch(`${API.APIURL}/realtime?location=ajmer`, requestOptions)
   .then((response) => response.json())
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
-
-
-const apikey = process.env.VITE_API_KEY;
-console.log(apikey);
