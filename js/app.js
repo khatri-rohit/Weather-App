@@ -1,16 +1,15 @@
 import { API } from "./data.js";
-console.log("ROhit");
-// console.log(API);
 var myHeaders = new Headers();
-myHeaders.append("apikey", "xauunvDe8N05BUCjZLPVgywDQh0FnsxT");
+myHeaders.append("apikey", API.APIKEY);
 
-var requestOptions = {
+let requestOptions = {
   method: "GET",
   headers: myHeaders,
   redirect: "follow",
 };
 
-fetch(`${API.APIURL}/realtime?location=ajmer`, requestOptions)
+
+fetch(`${API.APIURL}/realtime?location=Indore, Madhya Pradesh, India`, requestOptions)
   .then((response) => response.json())
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));

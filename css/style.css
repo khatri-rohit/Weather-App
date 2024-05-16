@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  background-color: #030227;
+  font-family: "author";
+}
+
+.v {
+  font-family: "satoshi";
+}
+
+.container {
+  background: url("../img/mountains-with-cloudy-sky-surface.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.search {
+  border: 2px white solid;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 1.5em;
+  text-indent: 0.51em;
+  color: #1679AB;
+}
+
+.navbarr {
+  border-bottom: 3.5px solid white;
+}
+.navbarr > div {
+  border-bottom: 2px solid white;
+  cursor: pointer;
+  margin: .5em;
+}
+.col-3 > a{
+  font-size: 1.3em;
+}
