@@ -53,6 +53,7 @@ input {
 .result-box > p {
   font-size: 1.2em;
   font-family: "satoshi";
+  cursor: pointer;
 }
 .result-box > p:last-child {
   padding-bottom: 0;
@@ -111,5 +112,8 @@ th {
 @media (max-width: 768px) {
   .card {
     width: 10%;
+  }
+  .result-box > p {
+    font-size: .8em;
   }
 }
