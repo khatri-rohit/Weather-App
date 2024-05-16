@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  background: url("../img/mountains-with-cloudy-sky-surface.jpg");
+  background: url("../img/beautiful-clouds-digital-art.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -38,6 +38,24 @@ input {
   font-size: 1.5em;
   text-indent: 0.51em;
   color: #1679ab;
+}
+
+.result-box {
+  border-top: 3px solid #515253;
+  background-color: white;
+  position: fixed;
+  width: 38%;
+  left: 31.5%;
+  right: auto;
+  padding: 1em;
+  display: none;
+}
+.result-box > p {
+  font-size: 1.2em;
+  font-family: "satoshi";
+}
+.result-box > p:last-child {
+  padding-bottom: 0;
 }
 
 .navbarr {
@@ -66,19 +84,28 @@ input {
   padding-top: 20em;
   border-bottom: 3px solid white;
 }
-.container-card::-webkit-scrollbar{
+.container-card::-webkit-scrollbar {
   display: none;
-} 
+}
 .hourly-temp-card {
   margin: 0 1em;
-  /* To get Scroll bar at the end and to set Intems in a column */
-
+  /* To get Scroll bar at the end and
+   to set Intems in a column */
   flex: 0 0 auto;
   width: 6%;
   background-color: transparent;
 }
 .card > img {
   width: auto;
+}
+
+td {
+  padding: 0 1em;
+  font-size: 1.5em;
+}
+
+th {
+  text-align: left;
 }
 
 @media (max-width: 768px) {
