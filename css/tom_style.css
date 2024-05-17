@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  background: url('../img/day.jpg');
+  background: url(../img/day.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }

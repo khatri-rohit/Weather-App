@@ -27,7 +27,7 @@ setInterval(() => {
 
 const date = new Date();
 if (date.getHours() - 12 > 6) {
-  back.style.background = `url("../img/nyt.jpg")`;
+  back.style.background = 'url(../img/nyt.jpg)'
   back.style.backgroundRepeat = "no-repeat";
   back.style.backgroundSize = "cover";
 }
