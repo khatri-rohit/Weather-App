@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  background: url("../img/mountains-with-cloudy-sky-surface.jpg");
+  background: url("../img/day.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -100,8 +100,8 @@ input {
   width: 6%;
   background-color: transparent;
 }
-.card > img {
-  width: auto;
+.hourly-temp-card > img {
+  width: 10vw;
 }
 
 td {
