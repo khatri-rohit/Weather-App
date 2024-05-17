@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  background: url("../img/mountains-with-cloudy-sky-surface.jpg");
+  /* background: url("../img/beautiful-clouds-digital-art.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -38,6 +38,10 @@ input {
   font-size: 1.5em;
   text-indent: 0.51em;
   color: #1679ab;
+}
+
+::placeholder {
+  color: #dddddd;
 }
 
 .result-box {
