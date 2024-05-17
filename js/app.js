@@ -42,32 +42,32 @@ const requestOptions = {
   redirect: "follow",
 };
 
-// async function todayTemperature() {
-//   const response = await fetch(
-//     `${API.APIURL}/realtime?location=26.4815994,74.6048946`,
-//     requestOptions
-//   );
-//   const result = await response.json();
-//   let temp = result.data.values.temperature;
-//   return temp;
-// }
+async function todayTemperature() {
+  const response = await fetch(
+    `${API.APIURL}/realtime?location=26.4815994,74.6048946`,
+    requestOptions
+  );
+  const result = await response.json();
+  let temp = result.data.values.temperature;
+  return temp;
+}
 
-// try {
-//   const response = await fetch(
-//     `${API.APIURL}/forecast?timesteps=1d&location=26.4815994,74.6048946`,
-//     requestOptions
-//   );
-//   const result = await response.json();
-//   let maxTemp = result.timelines.daily[0].values.temperatureMax;
-//   let minTemp = result.timelines.daily[0].values.temperatureMin;
-//   highestTemp.textContent = `${Math.round(maxTemp)}°`;
-//   lowestTemp.textContent = `${Math.round(minTemp)}°`;
-//   const todayTemp = todayTemperature();
-//   todayTemp.then((res) => {
-//     temperature.forEach((tem) => {
-//       tem.textContent = Math.round(res);
-//     });
-//   });
-// } catch (error) {
-//   console.error(error);
-// }
+try {
+  const response = await fetch(
+    `${API.APIURL}/forecast?timesteps=1d&location=26.4815994,74.6048946`,
+    requestOptions
+  );
+  const result = await response.json();
+  let maxTemp = result.timelines.daily[0].values.temperatureMax;
+  let minTemp = result.timelines.daily[0].values.temperatureMin;
+  highestTemp.textContent = `${Math.round(maxTemp)}°`;
+  lowestTemp.textContent = `${Math.round(minTemp)}°`;
+  const todayTemp = todayTemperature();
+  todayTemp.then((res) => {
+    temperature.forEach((tem) => {
+      tem.textContent = Math.round(res);
+    });
+  });
+} catch (error) {
+  console.error(error);
+}
