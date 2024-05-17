@@ -40,8 +40,8 @@ input {
   color: #1679ab;
 }
 
-::placeholder{
-  color: #DDDDDD;
+::placeholder {
+  color: #dddddd;
 }
 
 .result-box {
@@ -93,7 +93,7 @@ input {
   display: none;
 }
 .hourly-temp-card {
-  margin: 0 1em;
+  margin: 0 2.5em;
   /* To get Scroll bar at the end and
    to set Intems in a column */
   flex: 0 0 auto;
@@ -101,7 +101,7 @@ input {
   background-color: transparent;
 }
 .hourly-temp-card > img {
-  width: 10vw;
+  width: 7.5vw;
 }
 
 td {
@@ -118,6 +118,13 @@ th {
     width: 10%;
   }
   .result-box > p {
-    font-size: .8em;
+    font-size: 0.8em;
+  }
+  
+.hourly-temp-card {
+  margin: 0 1.2em;
+}
+  .hourly-temp-card > img {
+    width: 11vw;
   }
 }
