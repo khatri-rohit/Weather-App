@@ -91,7 +91,7 @@ input {
 .hourly-temp-card {
   margin: 0 1em;
   /* To get Scroll bar at the end and
-   to set Intems in a column */
+     to set Intems in a column */
   flex: 0 0 auto;
   width: 6%;
   background-color: transparent;
@@ -114,6 +114,6 @@ th {
     width: 10%;
   }
   .result-box > p {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
