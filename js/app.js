@@ -14,6 +14,8 @@ const UV = document.querySelector(".uv");
 const Visibility = document.querySelector(".visibi");
 
 const back = document.querySelector(".container");
+const img = document.querySelectorAll(".img");
+const toImg = document.querySelector("img");
 
 setInterval(() => {
   const date = new Date();
@@ -27,7 +29,7 @@ setInterval(() => {
 
 const date = new Date();
 if (date.getHours() - 12 > 6) {
-  back.style.background = 'url(../img/nyt.jpg)'
+  back.style.background = "url(../img/nyt.jpg)";
   back.style.backgroundRepeat = "no-repeat";
   back.style.backgroundSize = "cover";
 }
@@ -58,6 +60,12 @@ async function todayTemperature() {
   return temp;
 }
 
+if (date.getHours() > 6 && date.getHours() < 12) {
+  toImg.src = "../img/sunlight.png";
+} else {
+  toImg.src = "../img/night.png";
+}
+
 (async () => {
   try {
     const response = await fetch(
@@ -69,7 +77,6 @@ async function todayTemperature() {
     let minTemp = result.timelines.daily[0].values.temperatureMin;
     highestTemp.textContent = `${Math.round(maxTemp)}°`;
     lowestTemp.textContent = `${Math.round(minTemp)}°`;
-    console.log("Called");
     const todayTemp = todayTemperature();
     todayTemp.then((res) => {
       temperature.forEach((tem) => {
@@ -98,6 +105,18 @@ async function todayTemperature() {
       if (time > 12) {
         noon = "pm";
         time -= 12;
+      }
+      if (noon === "pm" && time < 12) {
+        img[arr - 1].src = "../img/sunlight.png";
+        if (time > 5) {
+          img[arr - 1].src = "../img/night.png";
+        }
+      } else {
+        if (time > 6) {
+          img[arr - 1].src = "../img/sunlight.png";
+        } else {
+          img[arr - 1].src = "../img/night.png";
+        }
       }
       if (time === 0) time += 12;
       nxtTime.textContent = `${time}:00 ${noon}`;

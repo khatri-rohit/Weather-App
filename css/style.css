@@ -99,6 +99,9 @@ input {
   flex: 0 0 auto;
   width: 6%;
   background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .hourly-temp-card > img {
   width: 7.5vw;
