@@ -24,13 +24,14 @@ if (date.getHours() - 12 > 6) {
   back.style.backgroundSize = "cover";
 }
 
-const date1 = new Date("2024-05-17T15:00:00Z");
-console.log(date1.getHours());
+const date1 = new Date("2024-05-17T17:00:00Z");
+console.log(date1.getHours() - 12);
 
-// if (date1.getHours() > 12) {
-// console.log(date1.getHours() - 12);
-// } else {
-// }
+if (date1.getHours() > 12) {
+  console.log(date1.getHours() - 12);
+} else {
+  console.log(date1.getHours());
+}
 
 const myHeaders = new Headers();
 myHeaders.append("apikey", API.APIKEY);
