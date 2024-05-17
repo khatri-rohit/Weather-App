@@ -27,7 +27,7 @@ setInterval(() => {
 });
 
 const date = new Date();
-if (date.getHours() - 12  > 7 ) {
+if (date.getHours() > 19 ) {
   background.style.background = `url("../img/beautiful-clouds-digital-art.jpg")`;
   background.style.backgroundRepeat = "no-repeat";
   background.style.backgroundSize = "cover";
