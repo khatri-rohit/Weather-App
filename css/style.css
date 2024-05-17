@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  /* background: url("../img/mountains-with-cloudy-sky-surface.jpg"); */
+  background: url("../img/mountains-with-cloudy-sky-surface.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
