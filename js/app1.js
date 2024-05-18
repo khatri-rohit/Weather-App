@@ -55,6 +55,3 @@ input.addEventListener("keyup", async () => {
 // }
 
 // loaction()
-
-// 26.4815994
-// 74.6048946

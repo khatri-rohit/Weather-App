@@ -16,8 +16,11 @@ const requestOptions = {
 
 (async () => {
   try {
+    const latitude = localStorage.getItem("lati");
+    const longitude = localStorage.getItem("long");
+    
     const response = await fetch(
-      `${API.APIURL}/forecast?timesteps=1d&location=26.4815994,74.6048946`,
+      `${API.APIURL}/forecast?timesteps=1d&location=${latitude},${longitude}`,
       requestOptions
     );
     const result = await response.json();

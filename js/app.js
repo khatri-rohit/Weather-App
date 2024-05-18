@@ -54,16 +54,28 @@ async function todayTemperature() {
   return temp;
 }
 
-if (date.getHours() > 6 && date.getHours() < 12) {
+if (date.getHours() < 12) {
   toImg.src = "..\\img\\night.png";
 } else {
   toImg.src = "..\\img\\sunlight.png";
 }
 
+try {
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    localStorage.setItem("lati", pos.coords.latitude);
+    localStorage.setItem("long", pos.coords.longitude);
+  });
+} catch (error) {
+  console.log(error);
+}
+
 (async () => {
   try {
+    const latitude = localStorage.getItem("lati");
+    const longitude = localStorage.getItem("long");
+
     const response = await fetch(
-      `${API.APIURL}/forecast?timesteps=1d&location=26.4815994,74.6048946`,
+      `${API.APIURL}/forecast?timesteps=1d&location=${latitude},${longitude}`,
       requestOptions
     );
     const result = await response.json();
@@ -79,7 +91,7 @@ if (date.getHours() > 6 && date.getHours() < 12) {
     });
 
     const hourlyResponse = await fetch(
-      `${API.APIURL}/forecast?timesteps=1h&location=26.4815994,74.6048946`,
+      `${API.APIURL}/forecast?timesteps=1h&location=${latitude},${longitude}`,
       requestOptions
     );
     const hourlyResult = await hourlyResponse.json();
@@ -106,7 +118,7 @@ if (date.getHours() > 6 && date.getHours() < 12) {
           img[arr - 1].src = "..\\img\\night.png";
         }
       } else {
-        if (time > 6) {
+        if (time > 5) {
           img[arr - 1].src = "..\\img\\sunlight.png";
         } else {
           img[arr - 1].src = "..\\img\\night.png";
