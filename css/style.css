@@ -123,11 +123,15 @@ th {
   .result-box > p {
     font-size: 0.8em;
   }
-  
-.hourly-temp-card {
-  margin: 0 1.2em;
-}
+
+  .hourly-temp-card {
+    margin: 0 1.2em;
+  }
   .hourly-temp-card > img {
     width: 11vw;
+  }
+
+  td {
+    font-size: 1.2em;
   }
 }

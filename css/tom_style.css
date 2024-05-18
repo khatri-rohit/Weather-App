@@ -19,9 +19,12 @@ body {
   font-size: 3em;
   margin-top: 1em;
 }
+.tmp {
+  font-size: 1.6em;
+}
 
 .container {
-  background: url(../img/day.jpg);
+  background: url(../img/nyt.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -93,15 +96,18 @@ input {
   display: none;
 }
 .hourly-temp-card {
-  margin: 0 1em;
+  margin: 0 2.5em;
   /* To get Scroll bar at the end and
-     to set Intems in a column */
+   to set Intems in a column */
   flex: 0 0 auto;
   width: 6%;
   background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.card > img {
-  width: auto;
+.hourly-temp-card > img {
+  width: 7.5vw;
 }
 
 td {
@@ -119,5 +125,18 @@ th {
   }
   .result-box > p {
     font-size: 0.8em;
+  }
+
+  .hourly-temp-card {
+    margin: 0 1.2em;
+  }
+  .hourly-temp-card > img {
+    width: 11vw;
+  }
+  .tmp {
+    font-size: 1.1em;
+  }
+  td{
+    font-size: 1.2em;
   }
 }

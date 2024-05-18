@@ -7,14 +7,14 @@ const lowestTemp = document.querySelector("#nytTem");
 const nextTemp = document.querySelectorAll(".next-temp");
 const nextTiming = document.querySelectorAll(".timing");
 const humidity = document.querySelector(".hum");
-const dew = document.querySelector(".dew");
-const pressure = document.querySelector(".press");
 const UV = document.querySelector(".uv");
-const Visibility = document.querySelector(".visibi");
+const sunset = document.querySelector(".sunset");
 
+const img = document.querySelectorAll(".img");
 const back = document.querySelector(".container");
 
 const date = new Date();
+date.setDate(date.getDate() + 1);
 let setDate = `${date.getDate()} ${date.toLocaleDateString("en-us", {
   weekday: "long",
   month: "long",
@@ -47,27 +47,46 @@ const requestOptions = {
     let minTemp = result.timelines.daily[1].values.temperatureMin;
     highestTemp.textContent = `${Math.round(maxTemp)}°`;
     lowestTemp.textContent = `${Math.round(minTemp)}°`;
-    todayTemp.then((res) => {
-      temperature.forEach((tem) => {
-        tem.textContent = Math.round(res);
-      });
-    });
+
+    const sunrise = new Date(result.timelines.daily[1].values.sunriseTime)
+    const set = new Date(result.timelines.daily[1].values.sunsetTime)
+
+    humidity.textContent = `${Math.round(result.timelines.daily[1].values.humidityAvg)}%`;
+    console.log(humidity);
+    UV.textContent = `Low,${result.timelines.daily[1].values.uvIndexAvg}`;
+    sunset.textContent = `${sunrise.toLocaleTimeString("en-us", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}, ${set.toLocaleTimeString("en-us", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
 
     const hourlyResponse = await fetch(
       `${API.APIURL}/forecast?timesteps=1h&location=26.4815994,74.6048946`,
       requestOptions
     );
     const hourlyResult = await hourlyResponse.json();
+    const Data = hourlyResult.timelines.hourly;
+    var array = [];
+    const newData = Data.filter((key) => {
+      const nextDate = new Date(key.time);
+      if (nextDate.getDate() == date.getDate() && nextDate.getHours() > 6) {
+        array.push(key.time);
+        array.push(key.values.temperature);
+      }
+    });
+
     let arr = 1;
     nextTemp.forEach((nxtTmp) => {
-      nxtTmp.textContent = `${Math.round(
-        hourlyResult.timelines.hourly[arr].values.temperature
-      )}°`;
-      arr++;
+      nxtTmp.textContent = `${Math.round(array[arr])}°`;
+      arr += 2;
     });
-    arr = 1;
+
+    arr = 0;
+    let awai = 0;
     nextTiming.forEach((nxtTime) => {
-      const date1 = new Date(hourlyResult.timelines.hourly[arr].time);
+      const date1 = new Date(array[arr]);
       let time = date1.getHours();
       var noon;
       noon = "am";
@@ -75,21 +94,22 @@ const requestOptions = {
         noon = "pm";
         time -= 12;
       }
+      if (time === 0) time += 12;
+      nxtTime.textContent = `${time}:00 ${noon}`;
+      arr += 2;
       if (noon === "pm" && time < 12) {
-        img[arr - 1].src = "../img/sunlight.png";
-        if (time > 5) {
-          img[arr - 1].src = "../img/night.png";
+        img[awai].src = "../img/sunlight.png";
+        if (time > 6) {
+          img[awai].src = "../img/night.png";
         }
       } else {
         if (time > 6) {
-          img[arr - 1].src = "../img/sunlight.png";
+          img[awai].src = "../img/sunlight.png";
         } else {
-          img[arr - 1].src = "../img/night.png";
+          img[awai].src = "../img/night.png";
         }
       }
-      if (time === 0) time += 12;
-      nxtTime.textContent = `${time}:00 ${noon}`;
-      arr++;
+      awai++;
     });
   } catch (error) {
     console.error(error);
