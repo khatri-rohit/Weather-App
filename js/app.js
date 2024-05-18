@@ -28,12 +28,6 @@ setInterval(() => {
 });
 
 const date = new Date();
-if (date.getHours() - 12 > 6) {
-  back.style.background = 'url(../img/yt.jpg)';
-  console.log("rohit");
-  back.style.backgroundRepeat = "no-repeat";
-  back.style.backgroundSize = "cover";
-}
 
 const myHeaders = new Headers();
 myHeaders.append("apikey", API.APIKEY);
