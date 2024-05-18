@@ -29,7 +29,7 @@ setInterval(() => {
 
 const date = new Date();
 if (date.getHours() - 12 > 6) {
-  back.style.background = "url(../img/nyt.jpg)";
+  back.style.background = "url(https://github.com/khatri-rohit/Weather-App/tree/main/img/nyt.jpg)";
   back.style.backgroundRepeat = "no-repeat";
   back.style.backgroundSize = "cover";
 }
@@ -61,9 +61,9 @@ async function todayTemperature() {
 }
 
 if (date.getHours() > 6 && date.getHours() < 12) {
-  toImg.src = "../img/night.png";
+  toImg.src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/night.png");
 } else {
-  toImg.src = "../img/sunlight.png";
+  toImg.src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/sunlight.png");
 }
 
 (async () => {
@@ -107,15 +107,15 @@ if (date.getHours() > 6 && date.getHours() < 12) {
         time -= 12;
       }
       if (noon === "pm" && time < 12) {
-        img[arr - 1].src = "../img/sunlight.png";
+        img[arr - 1].src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/sunlight.png");
         if (time > 6) {
-          img[arr - 1].src = "../img/night.png";
+          img[arr - 1].src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/night.png");
         }
       } else {
         if (time > 6) {
-          img[arr - 1].src = "../img/sunlight.png";
+          img[arr - 1].src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/sunlight.png");
         } else {
-          img[arr - 1].src = "../img/night.png";
+          img[arr - 1].src = ("https://github.com/khatri-rohit/Weather-App/tree/main/img/night.png");
         }
       }
       if (time === 0) time += 12;
