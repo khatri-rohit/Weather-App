@@ -21,12 +21,6 @@ let setDate = `${date.getDate()} ${date.toLocaleDateString("en-us", {
 })}`;
 tomorrow.textContent = setDate;
 
-if (date.getHours() - 12 > 6) {
-  back.style.background = "url(../img/nyt.jpg)";
-  back.style.backgroundRepeat = "no-repeat";
-  back.style.backgroundSize = "cover";
-}
-
 const myHeaders = new Headers();
 myHeaders.append("apikey", API.APIKEY);
 
@@ -52,7 +46,6 @@ const requestOptions = {
     const set = new Date(result.timelines.daily[1].values.sunsetTime)
 
     humidity.textContent = `${Math.round(result.timelines.daily[1].values.humidityAvg)}%`;
-    console.log(humidity);
     UV.textContent = `Low,${result.timelines.daily[1].values.uvIndexAvg}`;
     sunset.textContent = `${sunrise.toLocaleTimeString("en-us", {
       hour: "2-digit",
