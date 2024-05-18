@@ -31,7 +31,13 @@ input.addEventListener("keyup", async () => {
       if (Object.values(result.predictions, key)) {
         const element = result.predictions[key];
         const plac = document.querySelectorAll(".place");
-        plac[key].innerText = element.description;
+        plac[key].innerHTML = element.description;
+        plac.forEach((place) => {
+          place.addEventListener("click", () => {
+            localStorage.setItem("choosen", place.textContent);
+            location.href = "index.html";
+          });
+        });
       }
     }
     if (input.value === "" || input.value === " ") {
@@ -41,17 +47,3 @@ input.addEventListener("keyup", async () => {
     console.error(error);
   }
 });
-
-// async function gotLoaction(position) {
-//   console.log(position.coords.latitude);
-//   console.log(position.coords.longitude);
-// }
-// async function faliure() {
-//   console.log("Error");
-// }
-
-// function loaction() {
-//   navigator.geolocation.getCurrentPosition(gotLoaction, faliure);
-// }
-
-// loaction()
