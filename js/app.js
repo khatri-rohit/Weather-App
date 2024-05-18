@@ -56,9 +56,9 @@ async function todayTemperature() {
 }
 
 if (date.getHours() > 6 && date.getHours() < 12) {
-  toImg.src = "..\\img\\night.png";
+  toImg.src = "../img/night.png";
 } else {
-  toImg.src = "..\\img\\sunlight.png";
+  toImg.src = "../img/sunlight.png";
 }
 
 (async () => {
@@ -102,15 +102,15 @@ if (date.getHours() > 6 && date.getHours() < 12) {
         time -= 12;
       }
       if (noon === "pm" && time < 12) {
-        img[arr - 1].src = "\\img\\sunlight.png";
+        img[arr - 1].src = "/img/sunlight.png";
         if (time > 6) {
-          img[arr - 1].src = "\\img\\night.png";
+          img[arr - 1].src = "/img/night.png";
         }
       } else {
         if (time > 6) {
-          img[arr - 1].src = "\\img\\sunlight.png";
+          img[arr - 1].src = "/img/sunlight.png";
         } else {
-          img[arr - 1].src = "\\img\\night.png";
+          img[arr - 1].src = "/img/night.png";
         }
       }
       if (time === 0) time += 12;

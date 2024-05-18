@@ -91,15 +91,15 @@ const requestOptions = {
       nxtTime.textContent = `${time}:00 ${noon}`;
       arr += 2;
       if (noon === "pm" && time < 12) {
-        img[awai].src = "\\img\\sunlight.png";
+        img[awai].src = "/img/sunlight.png";
         if (time > 6) {
-          img[awai].src = "\\img\\night.png";
+          img[awai].src = "/img/night.png";
         }
       } else {
         if (time > 6) {
-          img[awai].src = "\\img\\sunlight.png";
+          img[awai].src = "/img/sunlight.png";
         } else {
-          img[awai].src = "\\img\\night.png";
+          img[awai].src = "/img/night.png";
         }
       }
       awai++;
