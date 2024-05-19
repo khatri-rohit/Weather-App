@@ -1,5 +1,8 @@
 import { API } from "./data.js";
 
+var data = ct.getCountry('IN');
+console.log(data);
+
 const highestTemp = document.querySelectorAll("#dayTem");
 const lowestTemp = document.querySelectorAll("#nytTem");
 
@@ -65,7 +68,6 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-
     console.error(error);
   }
 }
