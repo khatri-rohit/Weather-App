@@ -12,6 +12,7 @@ const sunset = document.querySelector(".sunset");
 
 const img = document.querySelectorAll(".img");
 const input = document.querySelector("input");
+const container = document.querySelector('.container')
 
 const date = new Date();
 date.setDate(date.getDate() + 1);
@@ -158,7 +159,8 @@ async function userLocation(local) {
   } catch (err) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    location.href = '../noRespone.html'
+    container.style.display = 'none';
+
   }
 }
 
@@ -245,6 +247,7 @@ async function currentLocation() {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     console.error(error);
-    location.href = '../noRespone.html'
+    container.style.display = 'none';
+
   }
 }

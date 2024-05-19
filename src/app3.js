@@ -8,6 +8,9 @@ const lowestTemp = document.querySelectorAll("#nytTem");
 
 const dateTime = document.querySelectorAll(".date-time");
 const input = document.querySelector("input");
+
+const container = document.querySelector('.container')
+
 const myHeaders = new Headers();
 myHeaders.append("apikey", API.APIKEY);
 
@@ -70,7 +73,8 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    location.href = '../noRespone.html'
+    container.style.display = 'none';
+
   }
 }
 
@@ -110,6 +114,6 @@ async function currentLocation() {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    location.href = '../noRespone.html'
+    container.style.display = 'none';
   }
 }

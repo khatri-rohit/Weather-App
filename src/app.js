@@ -17,6 +17,8 @@ const input = document.querySelector("input");
 const img = document.querySelectorAll(".img");
 const toImg = document.querySelector("img");
 
+const container = document.querySelector(".container");
+
 setInterval(() => {
   const date = new Date();
   let setDate = `${date.getDate()} ${date.toLocaleTimeString("en-us", {
@@ -169,9 +171,10 @@ async function userLocation(local) {
     alert(
       `Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`
     );
-    location.href = "../noRespone.html";
+    container.style.display = "none";
   }
 }
+
 async function currentLocation() {
   try {
     const latitude = localStorage.getItem("lati");
@@ -236,6 +239,6 @@ async function currentLocation() {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    location.href = "../noRespone.html";
+    container.style.display = "none";
   }
 }
