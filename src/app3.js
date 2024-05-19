@@ -1,6 +1,6 @@
 import { API } from "./data.js";
 
-var data = ct.getCountry('IN');
+var data = ct.getCountry("IN");
 console.log(data);
 
 const highestTemp = document.querySelectorAll("#dayTem");
@@ -27,16 +27,18 @@ const requestOptions = {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         console.log("Current Location");
+        currentLocation()
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error + " Not getting Location ");
   }
 })();
 
 async function userLocation(local) {
   try {
     input.value = local;
+    console.log("Location -> ", local);
     const response = await fetch(
       `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
       requestOptions
@@ -68,11 +70,11 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    console.error(error);
+    location.href = '../redirect.html'
   }
 }
 
-(async () => {
+async function currentLocation() {
   try {
     const latitude = localStorage.getItem("lati");
     const longitude = localStorage.getItem("long");
@@ -108,7 +110,6 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-
-    console.error(error);
+    location.href = '../redirect.html'
   }
-})();
+}

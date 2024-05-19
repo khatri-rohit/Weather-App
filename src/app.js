@@ -1,7 +1,5 @@
 import { API } from "./data.js";
 
-// import * as ct from 'countries-and-timezones'
-
 const today = document.querySelector(".date");
 const highestTemp = document.querySelector("#dayTem");
 const lowestTemp = document.querySelector("#nytTem");
@@ -72,12 +70,42 @@ if (date.getHours() < 12) {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         console.log("Current Location");
+        currentLocation();
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error + " Not getting Location ");
   }
 })();
+
+function setTime(time, arr) {
+  var noon;
+  noon = "am";
+  if (time > 12) {
+    noon = "pm";
+    time -= 12;
+  }
+  if (noon === "pm" && time < 12) {
+    img[arr - 1].src = "..\\img\\sunlight.png";
+    if (time > 6) {
+      img[arr - 1].src = "..\\img\\night.png";
+    }
+  } else {
+    if (time > 5) {
+      img[arr - 1].src = "..\\img\\sunlight.png";
+    } else {
+      img[arr - 1].src = "..\\img\\night.png";
+    }
+  }
+  if (time === 0) time += 12;
+  nextTiming[arr - 1].textContent = `${time}:00 ${noon}`;
+}
+
+function getCountry(local) {
+  var newlocal = local.split(" ");
+  var name = newlocal[newlocal.length - 1];
+  return name;
+}
 
 async function userLocation(local) {
   try {
@@ -113,38 +141,38 @@ async function userLocation(local) {
       )}°`;
       arr++;
     });
+
     arr = 1;
+    var country = ct.getAllCountries();
+    console.log(country);
+
+    var Name = getCountry(local);
     nextTiming.forEach((nxtTime) => {
       const date1 = new Date(hourlyResult.timelines.hourly[arr].time);
-      let time = date1.getHours();
-      var noon;
-      noon = "am";
-      if (time > 12) {
-        noon = "pm";
-        time -= 12;
-      }
-      if (noon === "pm" && time < 12) {
-        img[arr - 1].src = "..\\img\\sunlight.png";
-        if (time > 6) {
-          img[arr - 1].src = "..\\img\\night.png";
-        }
-      } else {
-        if (time > 5) {
-          img[arr - 1].src = "..\\img\\sunlight.png";
-        } else {
-          img[arr - 1].src = "..\\img\\night.png";
+
+      for (const key in country) {
+        if (Object.values(country, key)) {
+          const element = country[key];
+          if (element.name === Name) {
+            var timestep = ct.getTimezone(element.timezones[0]);
+            console.log(timestep.utcOffsetStr);
+            var time = parseInt(timestep.utcOffsetStr);
+            date1.setUTCHours(date1.getUTCHours() + time);
+          }
         }
       }
-      if (time === 0) time += 12;
-      nxtTime.textContent = `${time}:00 ${noon}`;
+      let timing = date1.getUTCHours();
+      setTime(timing, arr);
       arr++;
     });
   } catch (error) {
-    alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`)
-    console.error(error);
+    alert(
+      `Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`
+    );
+    location.href = "../redirect.html";
   }
 }
-(async () => {
+async function currentLocation() {
   try {
     const latitude = localStorage.getItem("lati");
     const longitude = localStorage.getItem("long");
@@ -208,6 +236,6 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    console.error(error);
+    location.href = "../redirect.html";
   }
-})();
+}

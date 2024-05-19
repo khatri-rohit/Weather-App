@@ -11,7 +11,7 @@ const UV = document.querySelector(".uv");
 const sunset = document.querySelector(".sunset");
 
 const img = document.querySelectorAll(".img");
-const input = document.querySelector('input')
+const input = document.querySelector("input");
 
 const date = new Date();
 date.setDate(date.getDate() + 1);
@@ -41,12 +41,42 @@ const requestOptions = {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         console.log("Current Location");
+        currentLocation();
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error + " Not getting Location ");
   }
 })();
+
+function setTime(time,arr, awai) {
+  var noon;
+  noon = "am";
+  if (time > 12) {
+    noon = "pm";
+    time -= 12;
+  }
+  if (time === 0) time += 12;
+  nextTiming[arr].textContent = `${time}:00 ${noon}`;
+  if (noon === "pm" && time < 12) {
+    img[awai].src = "..\\img\\sunlight.png";
+    if (time > 6) {
+      img[awai].src = "..\\img\\night.png";
+    }
+  } else {
+    if (time > 6) {
+      img[awai].src = "..\\img\\sunlight.png";
+    } else {
+      img[awai].src = "..\\img\\night.png";
+    }
+  }
+}
+
+function getCountry(local) {
+  var newlocal = local.split(" ");
+  var name = newlocal[newlocal.length - 1];
+  return name;
+}
 
 async function userLocation(local) {
   try {
@@ -96,41 +126,43 @@ async function userLocation(local) {
       nxtTmp.textContent = `${Math.round(array[arr])}°`;
       arr += 2;
     });
-    
+
     arr = 0;
     let awai = 0;
+    let len = 0;
+    var country = ct.getAllCountries();
+    console.log(country);
+
+    var Name = getCountry(local);
     nextTiming.forEach((nxtTime) => {
       const date1 = new Date(array[arr]);
-      let time = date1.getHours();
-      var noon;
-      noon = "am";
-      if (time > 12) {
-        noon = "pm";
-        time -= 12;
+
+      for (const key in country) {
+        if (Object.values(country, key)) {
+          const element = country[key];
+          if (element.name === Name) {
+            var timestep = ct.getTimezone(element.timezones[0]);
+            console.log(timestep.utcOffsetStr);
+            var time = parseInt(timestep.utcOffsetStr);
+            date1.setUTCHours(date1.getUTCHours() + time);
+          }
+        }
       }
-      if (time === 0) time += 12;
-      nxtTime.textContent = `${time}:00 ${noon}`;
+
+      let timing = date1.getUTCHours();
+      setTime(timing,len, awai);
       arr += 2;
-      if (noon === "pm" && time < 12) {
-        img[awai].src = "..\\img\\sunlight.png";
-        if (time > 6) {
-          img[awai].src = "..\\img\\night.png";
-        }
-      } else {
-        if (time > 6) {
-          img[awai].src = "..\\img\\sunlight.png";
-        } else {
-          img[awai].src = "..\\img\\night.png";
-        }
-      }
       awai++;
+      len++;
     });
   } catch (err) {
-    console.log(err);
+    alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
+    `);
+    location.href = '../redirect.html'
   }
 }
 
-(async () => {
+async function currentLocation() {
   try {
     const latitude = localStorage.getItem("lati");
     const longitude = localStorage.getItem("long");
@@ -210,6 +242,9 @@ async function userLocation(local) {
       awai++;
     });
   } catch (error) {
+    alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
+    `);
     console.error(error);
+    location.href = '../redirect.html'
   }
-})();
+}
