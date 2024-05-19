@@ -158,7 +158,7 @@ async function userLocation(local) {
   } catch (err) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    location.href = '../redirect.html'
+    location.href = '../noRespone.html'
   }
 }
 
@@ -245,6 +245,6 @@ async function currentLocation() {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     console.error(error);
-    location.href = '../redirect.html'
+    location.href = '../noRespone.html'
   }
 }
