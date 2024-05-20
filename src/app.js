@@ -15,7 +15,7 @@ const Visibility = document.querySelector(".visibi");
 
 const input = document.querySelector("input");
 const img = document.querySelectorAll(".img");
-const toImg = document.querySelector("img");
+const toImg = document.querySelector(".currImg");
 
 const container = document.querySelector(".container");
 
@@ -57,19 +57,48 @@ async function todayTemperature(value) {
 }
 
 if (date.getHours() < 12) {
-  toImg.src = "..\\img\\yt.png";
-} else {
   toImg.src = "..\\img\\sunlight.png";
+  if (date.getHours() > 6) toImg.src = "..\\img\\night.png";
+} else toImg.src = "..\\img\\night.png";
+
+const SESSION_START_KEY = "sessionStart";
+const LAST_ACTIVE_KEY = "lastActive";
+const INACTIVITY_THRESHOLD = 5 * 60 * 1000; // 5 minutes (adjust as needed)
+
+// Function to initialize session start timestamp
+function initializeSession() {
+  const now = Date.now();
+  localStorage.setItem(SESSION_START_KEY, now.toString());
+  sessionStorage.setItem(LAST_ACTIVE_KEY, now.toString());
 }
 
-function clearStorage() {
-  let session = sessionStorage.getItem("register");
-  if (session == null) {
-    localStorage.removeItem("choosen");
-  }
-  sessionStorage.setItem("register", 1);
+// Function to update the last active timestamp
+function updateLastActive() {
+  const now = Date.now();
+  sessionStorage.setItem(LAST_ACTIVE_KEY, now.toString());
 }
-window.addEventListener("load", clearStorage);
+
+// Function to clear local storage if the session has ended
+function clearLocalStorageIfSessionEnded() {
+  const lastActive = parseInt(sessionStorage.getItem(LAST_ACTIVE_KEY), 10);
+  const now = Date.now();
+
+  if (now - lastActive > INACTIVITY_THRESHOLD) {
+    localStorage.clear();
+  }
+}
+
+// Initialize the session start timestamp on page load
+initializeSession();
+
+// Update the last active timestamp every minute
+setInterval(updateLastActive, 60 * 1000);
+
+// Check and clear local storage if the session has ended
+clearLocalStorageIfSessionEnded();
+
+// Update the last active timestamp before the page unloads
+window.addEventListener("beforeunload", updateLastActive);
 
 (async () => {
   try {
@@ -175,7 +204,7 @@ async function userLocation(local) {
       `Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`
     );
     container.style.display = "none";
-    location.href = 'response.html'
+    location.href = "response.html";
   }
 }
 
@@ -244,6 +273,6 @@ async function currentLocation() {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     container.style.display = "none";
-    location.href = 'response.html'
+    location.href = "response.html";
   }
 }
