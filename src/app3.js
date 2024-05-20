@@ -42,14 +42,10 @@ async function userLocation(local) {
   try {
     input.value = local;
     console.log("Location -> ", local);
-    try {
-      const response = await fetch(
-        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-        requestOptions
-      );
-    } catch (err) {
-      console.log(err + "400 Bad Request");
-    }
+    const response = await fetch(
+      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+      requestOptions
+    );
     const result = await response.json();
     let len = 0;
     highestTemp.forEach((high) => {

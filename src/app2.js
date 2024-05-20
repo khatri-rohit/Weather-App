@@ -31,8 +31,6 @@ const requestOptions = {
   redirect: "follow",
 };
 
-localStorage.clear();
-
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
@@ -43,12 +41,18 @@ localStorage.clear();
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
+        localStorage.clear();
       });
     }
   } catch (error) {
     console.error(error + " Not getting Location ");
   }
 })();
+
+function unload(event) {
+  localStorage.removeItem("choosen");
+}
+window.addEventListener("beforeunload", unload);
 
 function setTime(time, arr, awai) {
   var noon;
@@ -82,14 +86,11 @@ function getCountry(local) {
 async function userLocation(local) {
   try {
     input.value = local;
-    try {
-      const response = await fetch(
-        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-        requestOptions
-      );
-    } catch (err) {
-      console.log(err + "400 Bad Request");
-    }
+    const response = await fetch(
+      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+      requestOptions
+    );
+
     const result = await response.json();
     let maxTemp = result.timelines.daily[1].values.temperatureMax;
     let minTemp = result.timelines.daily[1].values.temperatureMin;

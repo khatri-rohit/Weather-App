@@ -82,6 +82,11 @@ if (date.getHours() < 12) {
   }
 })();
 
+function unload(event) {
+  localStorage.removeItem("choosen");
+}
+window.addEventListener("beforeunload", unload);
+
 function setTime(time, arr) {
   var noon;
   noon = "am";
@@ -115,14 +120,10 @@ async function userLocation(local) {
   try {
     input.value = local;
 
-    try {
-      const response = await fetch(
-        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-        requestOptions
-      );
-    } catch (err) {
-      console.log(err + "400 Bad Request");
-    }
+    const response = await fetch(
+      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+      requestOptions
+    );
 
     const result = await response.json();
     let maxTemp = result.timelines.daily[0].values.temperatureMax;
