@@ -9,7 +9,7 @@ const lowestTemp = document.querySelectorAll("#nytTem");
 const dateTime = document.querySelectorAll(".date-time");
 const input = document.querySelector("input");
 
-const container = document.querySelector('.container')
+const container = document.querySelector(".container");
 
 const myHeaders = new Headers();
 myHeaders.append("apikey", API.APIKEY);
@@ -20,7 +20,6 @@ const requestOptions = {
   redirect: "follow",
 };
 
-
 function clearStorage() {
   let session = sessionStorage.getItem("register");
   if (session == null) {
@@ -29,7 +28,6 @@ function clearStorage() {
   sessionStorage.setItem("register", 1);
 }
 window.addEventListener("load", clearStorage);
-
 
 (async () => {
   try {
@@ -40,7 +38,7 @@ window.addEventListener("load", clearStorage);
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
-        currentLocation()
+        currentLocation();
       });
     }
   } catch (error) {
@@ -83,8 +81,8 @@ async function userLocation(local) {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    container.style.display = 'none';
-
+    container.style.display = "none";
+    location.href = "response.html";
   }
 }
 
@@ -124,6 +122,7 @@ async function currentLocation() {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    container.style.display = 'none';
+    container.style.display = "none";
+    location.href = "response.html";
   }
 }

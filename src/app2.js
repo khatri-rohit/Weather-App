@@ -168,6 +168,7 @@ async function userLocation(local) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     container.style.display = "none";
+    location.href = 'response.html'
   }
 }
 
@@ -255,5 +256,6 @@ async function currentLocation() {
     `);
     console.error(error);
     container.style.display = "none";
+    location.href = 'response.html'
   }
 }
