@@ -44,7 +44,7 @@ function _0x2c07() {
     "https://place-autocomplete1.p.rapidapi.com/autocomplete",
     "303858jDgwqB",
     "458dQkplk",
-    "xauunvDe8N05BUCjZLPVgywDQh0FnsxT",
+    "m3NQQU9F2ZxcZH7GShheQcUBxBqPQGPD",
     "120chyciB",
     "1220972bFaVaG",
     "50OcSYeM",
