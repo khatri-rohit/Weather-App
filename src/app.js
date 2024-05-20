@@ -127,14 +127,12 @@ async function userLocation(local) {
         tem.textContent = Math.round(res);
       });
     });
-    console.log(result);
 
     const hourlyResponse = await fetch(
       `${API.APIURL}/forecast?timesteps=1h&location=${local}`,
       requestOptions
     );
     const hourlyResult = await hourlyResponse.json();
-    console.log(hourlyResult);
 
     let arr = 1;
     nextTemp.forEach((nxtTmp) => {
@@ -143,11 +141,9 @@ async function userLocation(local) {
       )}°`;
       arr++;
     });
-
+    
     arr = 1;
     var country = ct.getAllCountries();
-    console.log(country);
-
     var Name = getCountry(local);
     nextTiming.forEach((nxtTime) => {
       const date1 = new Date(hourlyResult.timelines.hourly[arr].time);

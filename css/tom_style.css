@@ -20,7 +20,7 @@ body {
   margin-top: 1em;
 }
 .tmp {
-  font-size: 1.6em;
+  font-size: 1.8em;
 }
 
 .container {
@@ -112,7 +112,7 @@ input {
 
 td {
   padding: 0 1em;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 th {
@@ -136,7 +136,7 @@ th {
   .tmp {
     font-size: 1.1em;
   }
-  td{
-    font-size: 1.2em;
+  td {
+    font-size: 1.1em;
   }
 }
