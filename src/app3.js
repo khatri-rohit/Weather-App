@@ -45,6 +45,11 @@ async function userLocation(local) {
       `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
       requestOptions
     );
+    
+    if(response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if(response.status == 429) console.log("API Reached It's Request Limit"); 
+
     const result = await response.json();
     let len = 0;
     highestTemp.forEach((high) => {
@@ -86,6 +91,11 @@ async function currentLocation() {
       `${API.APIURL}/forecast?timesteps=1d&location=${latitude},${longitude}`,
       requestOptions
     );
+    
+    if(response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if(response.status == 429) console.log("API Reached It's Request Limit"); 
+
     const result = await response.json();
     let len = 0;
     highestTemp.forEach((high) => {

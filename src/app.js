@@ -12,6 +12,7 @@ const dew = document.querySelector(".dew");
 const pressure = document.querySelector(".press");
 const UV = document.querySelector(".uv");
 const Visibility = document.querySelector(".visibi");
+const yourLocation = document.querySelector(".yourLocation");
 
 const input = document.querySelector("input");
 const img = document.querySelectorAll(".img");
@@ -44,8 +45,8 @@ async function todayTemperature(value) {
     `${API.APIURL}/realtime?location=${value}`,
     requestOptions
   );
-  const result = await response.json();
 
+  const result = await response.json();
   humidity.textContent = `${result.data.values.humidity}%`;
   dew.textContent = `${result.data.values.dewPoint}℃`;
   pressure.textContent = `${result.data.values.pressureSurfaceLevel} mBar`;
@@ -80,11 +81,6 @@ if (date.getHours() < 12) {
     console.error(error + " Not getting Location ");
   }
 })();
-
-function unload(event) {
-  localStorage.removeItem("choosen");
-}
-window.addEventListener("beforeunload", unload);
 
 function setTime(time, arr) {
   var noon;
@@ -123,6 +119,11 @@ async function userLocation(local) {
       `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
       requestOptions
     );
+
+    if (response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if (response.status == 429)
+      console.log("API Reached It's Request Limit");
 
     const result = await response.json();
     let maxTemp = result.timelines.daily[0].values.temperatureMax;
@@ -171,6 +172,9 @@ async function userLocation(local) {
       arr++;
     });
   } catch (error) {
+    if (error) {
+      console.log(error + " <>");
+    }
     alert(
       `Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`
     );
@@ -188,6 +192,12 @@ async function currentLocation() {
       `${API.APIURL}/forecast?timesteps=1d&location=${latitude},${longitude}`,
       requestOptions
     );
+
+    if (response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if (response.status == 429)
+      console.log("API Reached It's Request Limit");
+
     const result = await response.json();
     let maxTemp = result.timelines.daily[0].values.temperatureMax;
     let minTemp = result.timelines.daily[0].values.temperatureMin;
@@ -243,7 +253,20 @@ async function currentLocation() {
   } catch (error) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
+    if (error) {
+      console.log(error + " <>");
+    }
     container.style.display = "none";
     location.href = "response.html";
   }
 }
+
+yourLocation.addEventListener("click", () => {
+  localStorage.clear();
+  input.value = "";
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    localStorage.setItem("lati", pos.coords.latitude);
+    localStorage.setItem("long", pos.coords.longitude);
+    currentLocation();
+  });
+});

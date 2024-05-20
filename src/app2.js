@@ -48,11 +48,6 @@ const requestOptions = {
   }
 })();
 
-function unload(event) {
-  localStorage.removeItem("choosen");
-}
-window.addEventListener("beforeunload", unload);
-
 function setTime(time, arr, awai) {
   var noon;
   noon = "am";
@@ -89,6 +84,10 @@ async function userLocation(local) {
       `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
       requestOptions
     );
+    
+    if(response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if(response.status == 429) console.log("API Reached It's Request Limit"); 
 
     const result = await response.json();
     let maxTemp = result.timelines.daily[1].values.temperatureMax;
@@ -115,6 +114,11 @@ async function userLocation(local) {
       `${API.APIURL}/forecast?timesteps=1h&location=${local}`,
       requestOptions
     );
+    
+    if(hourlyResponse.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if(hourlyResponse.status == 429) console.log("API Reached It's Request Limit"); 
+
     const hourlyResult = await hourlyResponse.json();
     const Data = hourlyResult.timelines.hourly;
     var array = [];
@@ -135,9 +139,8 @@ async function userLocation(local) {
     arr = 0;
     let awai = 0;
     let len = 0;
+    
     var country = ct.getAllCountries();
-    console.log(country);
-
     var Name = getCountry(local);
     nextTiming.forEach((nxtTime) => {
       const date1 = new Date(array[arr]);
@@ -176,6 +179,11 @@ async function currentLocation() {
       `${API.APIURL}/forecast?timesteps=1d&location=${latitude},${longitude}`,
       requestOptions
     );
+    
+    if(response.status === 400)
+      console.log("Bad Request\nQuery perameter error");
+    else if(response.status == 429) console.log("API Reached It's Request Limit"); 
+
     const result = await response.json();
     let maxTemp = result.timelines.daily[1].values.temperatureMax;
     let minTemp = result.timelines.daily[1].values.temperatureMin;

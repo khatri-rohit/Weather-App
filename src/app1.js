@@ -2,6 +2,7 @@ import { PLACE_API } from "./data.js";
 
 const input = document.querySelector("input");
 const places = document.querySelector(".result-box");
+const form = document.querySelector("form");
 
 const myHeaders = new Headers();
 myHeaders.append("X-RapidAPI-Key", PLACE_API.APIKEY);
@@ -31,10 +32,8 @@ input.addEventListener("keyup", async () => {
         const plac = document.querySelectorAll(".place");
         plac[key].innerHTML = element.description;
         plac.forEach((place) => {
-          place.addEventListener("click", () => {
-            localStorage.setItem("choosen", place.textContent);
-            location.href = "index.html";
-          });
+          place.addEventListener("click", getPlace(place.textContent));
+          form.addEventListener("submit", getPlace(place.textContent));
         });
       }
     }
@@ -45,3 +44,8 @@ input.addEventListener("keyup", async () => {
     console.error(error);
   }
 });
+
+function getPlace(place) {
+  localStorage.setItem("choosen", place);
+  location.href = "index.html";
+}
