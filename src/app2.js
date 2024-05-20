@@ -31,7 +31,6 @@ const requestOptions = {
   redirect: "follow",
 };
 
-
 function clearStorage() {
   let session = sessionStorage.getItem("register");
   if (session == null) {
@@ -40,7 +39,6 @@ function clearStorage() {
   sessionStorage.setItem("register", 1);
 }
 window.addEventListener("load", clearStorage);
-
 
 (async () => {
   try {
@@ -52,12 +50,19 @@ window.addEventListener("load", clearStorage);
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
+        localStorage.clear();
       });
     }
   } catch (error) {
     console.error(error + " Not getting Location ");
   }
 })();
+
+
+function unload(event) {
+  localStorage.removeItem("choosen");
+}
+window.addEventListener('beforeunload',unload)
 
 function setTime(time, arr, awai) {
   var noon;
@@ -91,10 +96,14 @@ function getCountry(local) {
 async function userLocation(local) {
   try {
     input.value = local;
-    const response = await fetch(
-      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-      requestOptions
-    );
+    try {
+      const response = await fetch(
+        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+        requestOptions
+      );
+    } catch (err) {
+      console.log(err + "400 Bad Request");
+    }
     const result = await response.json();
     let maxTemp = result.timelines.daily[1].values.temperatureMax;
     let minTemp = result.timelines.daily[1].values.temperatureMin;
@@ -168,7 +177,7 @@ async function userLocation(local) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     container.style.display = "none";
-    location.href = 'response.html'
+    location.href = "response.html";
   }
 }
 
@@ -256,6 +265,6 @@ async function currentLocation() {
     `);
     console.error(error);
     container.style.display = "none";
-    location.href = 'response.html'
+    location.href = "response.html";
   }
 }

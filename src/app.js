@@ -58,47 +58,11 @@ async function todayTemperature(value) {
 
 if (date.getHours() < 12) {
   toImg.src = "..\\img\\sunlight.png";
-  if (date.getHours() > 6) toImg.src = "..\\img\\night.png";
-} else toImg.src = "..\\img\\night.png";
-
-const SESSION_START_KEY = "sessionStart";
-const LAST_ACTIVE_KEY = "lastActive";
-const INACTIVITY_THRESHOLD = 5 * 60 * 1000; // 5 minutes (adjust as needed)
-
-// Function to initialize session start timestamp
-function initializeSession() {
-  const now = Date.now();
-  localStorage.setItem(SESSION_START_KEY, now.toString());
-  sessionStorage.setItem(LAST_ACTIVE_KEY, now.toString());
+} else if (date.getHours() >= 6 && date.getHours() < 18) {
+  toImg.src = "..\\img\\sunlight.png";
+} else {
+  toImg.src = "..\\img\\night.png";
 }
-
-// Function to update the last active timestamp
-function updateLastActive() {
-  const now = Date.now();
-  sessionStorage.setItem(LAST_ACTIVE_KEY, now.toString());
-}
-
-// Function to clear local storage if the session has ended
-function clearLocalStorageIfSessionEnded() {
-  const lastActive = parseInt(sessionStorage.getItem(LAST_ACTIVE_KEY), 10);
-  const now = Date.now();
-
-  if (now - lastActive > INACTIVITY_THRESHOLD) {
-    localStorage.clear();
-  }
-}
-
-// Initialize the session start timestamp on page load
-initializeSession();
-
-// Update the last active timestamp every minute
-setInterval(updateLastActive, 60 * 1000);
-
-// Check and clear local storage if the session has ended
-clearLocalStorageIfSessionEnded();
-
-// Update the last active timestamp before the page unloads
-window.addEventListener("beforeunload", updateLastActive);
 
 (async () => {
   try {
@@ -110,12 +74,18 @@ window.addEventListener("beforeunload", updateLastActive);
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
+        localStorage.clear();
       });
     }
   } catch (error) {
     console.error(error + " Not getting Location ");
   }
 })();
+
+function unload(event) {
+  localStorage.removeItem("choosen");
+}
+window.addEventListener('beforeunload',unload)
 
 function setTime(time, arr) {
   var noon;
@@ -149,10 +119,16 @@ function getCountry(local) {
 async function userLocation(local) {
   try {
     input.value = local;
-    const response = await fetch(
-      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-      requestOptions
-    );
+
+    try {
+      const response = await fetch(
+        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+        requestOptions
+      );
+    } catch (err) {
+      console.log(err + "400 Bad Request");
+    }
+
     const result = await response.json();
     let maxTemp = result.timelines.daily[0].values.temperatureMax;
     let minTemp = result.timelines.daily[0].values.temperatureMin;

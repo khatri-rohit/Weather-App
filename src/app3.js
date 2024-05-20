@@ -20,15 +20,6 @@ const requestOptions = {
   redirect: "follow",
 };
 
-function clearStorage() {
-  let session = sessionStorage.getItem("register");
-  if (session == null) {
-    localStorage.removeItem("choosen");
-  }
-  sessionStorage.setItem("register", 1);
-}
-window.addEventListener("load", clearStorage);
-
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
@@ -39,6 +30,7 @@ window.addEventListener("load", clearStorage);
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
+        localStorage.clear();
       });
     }
   } catch (error) {
@@ -46,14 +38,23 @@ window.addEventListener("load", clearStorage);
   }
 })();
 
+function unload(event) {
+  localStorage.removeItem("choosen");
+}
+window.addEventListener('beforeunload',unload)
+
 async function userLocation(local) {
   try {
     input.value = local;
     console.log("Location -> ", local);
-    const response = await fetch(
-      `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
-      requestOptions
-    );
+    try {
+      const response = await fetch(
+        `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
+        requestOptions
+      );
+    } catch (err) {
+      console.log(err + "400 Bad Request");
+    }
     const result = await response.json();
     let len = 0;
     highestTemp.forEach((high) => {
