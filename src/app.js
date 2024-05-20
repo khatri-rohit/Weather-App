@@ -74,7 +74,6 @@ if (date.getHours() < 12) {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
-        localStorage.clear();
       });
     }
   } catch (error) {

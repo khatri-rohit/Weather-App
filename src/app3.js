@@ -19,7 +19,7 @@ const requestOptions = {
   headers: myHeaders,
   redirect: "follow",
 };
-localStorage.clear();
+
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
