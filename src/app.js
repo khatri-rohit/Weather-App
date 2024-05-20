@@ -67,6 +67,7 @@ if (date.getHours() < 12) {
     if (localStorage.getItem("choosen")) {
       const Location = localStorage.getItem("choosen");
       userLocation(Location);
+      localStorage.clear()
     } else {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);

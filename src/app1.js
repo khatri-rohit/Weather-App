@@ -1,8 +1,6 @@
 import { PLACE_API } from "./data.js";
 
 const input = document.querySelector("input");
-const button = document.querySelector(".btn");
-const form = document.querySelector("form");
 const places = document.querySelector(".result-box");
 
 const myHeaders = new Headers();

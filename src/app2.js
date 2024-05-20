@@ -12,7 +12,7 @@ const sunset = document.querySelector(".sunset");
 
 const img = document.querySelectorAll(".img");
 const input = document.querySelector("input");
-const container = document.querySelector('.container')
+const container = document.querySelector(".container");
 
 const date = new Date();
 date.setDate(date.getDate() + 1);
@@ -35,8 +35,8 @@ const requestOptions = {
   try {
     if (localStorage.getItem("choosen")) {
       const Location = localStorage.getItem("choosen");
-      console.log("User Location");
-      userLocation(Location.toLowerCase());
+      userLocation(Location);
+      localStorage.clear();
     } else {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);
@@ -50,7 +50,7 @@ const requestOptions = {
   }
 })();
 
-function setTime(time,arr, awai) {
+function setTime(time, arr, awai) {
   var noon;
   noon = "am";
   if (time > 12) {
@@ -151,7 +151,7 @@ async function userLocation(local) {
       }
 
       let timing = date1.getUTCHours();
-      setTime(timing,len, awai);
+      setTime(timing, len, awai);
       arr += 2;
       awai++;
       len++;
@@ -159,8 +159,7 @@ async function userLocation(local) {
   } catch (err) {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
-    container.style.display = 'none';
-
+    container.style.display = "none";
   }
 }
 
@@ -247,7 +246,6 @@ async function currentLocation() {
     alert(`Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.
     `);
     console.error(error);
-    container.style.display = 'none';
-
+    container.style.display = "none";
   }
 }
