@@ -31,17 +31,26 @@ const requestOptions = {
   redirect: "follow",
 };
 
+
+function clearStorage() {
+  let session = sessionStorage.getItem("register");
+  if (session == null) {
+    localStorage.removeItem("choosen");
+  }
+  sessionStorage.setItem("register", 1);
+}
+window.addEventListener("load", clearStorage);
+
+
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
       const Location = localStorage.getItem("choosen");
       userLocation(Location);
-      localStorage.clear();
     } else {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
-        console.log("Current Location");
         currentLocation();
       });
     }
@@ -81,11 +90,11 @@ function getCountry(local) {
 
 async function userLocation(local) {
   try {
+    input.value = local;
     const response = await fetch(
       `${API.APIURL}/forecast?timesteps=1d&location=${local}`,
       requestOptions
     );
-    input.value = local;
     const result = await response.json();
     let maxTemp = result.timelines.daily[1].values.temperatureMax;
     let minTemp = result.timelines.daily[1].values.temperatureMin;
@@ -143,7 +152,6 @@ async function userLocation(local) {
           const element = country[key];
           if (element.name === Name) {
             var timestep = ct.getTimezone(element.timezones[0]);
-            console.log(timestep.utcOffsetStr);
             var time = parseInt(timestep.utcOffsetStr);
             date1.setUTCHours(date1.getUTCHours() + time);
           }

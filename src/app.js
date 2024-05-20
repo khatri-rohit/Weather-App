@@ -57,22 +57,29 @@ async function todayTemperature(value) {
 }
 
 if (date.getHours() < 12) {
-  toImg.src = "..\\img\\night.png";
+  toImg.src = "..\\img\\yt.png";
 } else {
   toImg.src = "..\\img\\sunlight.png";
 }
+
+function clearStorage() {
+  let session = sessionStorage.getItem("register");
+  if (session == null) {
+    localStorage.removeItem("choosen");
+  }
+  sessionStorage.setItem("register", 1);
+}
+window.addEventListener("load", clearStorage);
 
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
       const Location = localStorage.getItem("choosen");
       userLocation(Location);
-      localStorage.clear()
     } else {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
-        console.log("Current Location");
         currentLocation();
       });
     }
@@ -142,7 +149,7 @@ async function userLocation(local) {
       )}°`;
       arr++;
     });
-    
+
     arr = 1;
     var country = ct.getAllCountries();
     var Name = getCountry(local);
@@ -154,7 +161,6 @@ async function userLocation(local) {
           const element = country[key];
           if (element.name === Name) {
             var timestep = ct.getTimezone(element.timezones[0]);
-            console.log(timestep.utcOffsetStr);
             var time = parseInt(timestep.utcOffsetStr);
             date1.setUTCHours(date1.getUTCHours() + time);
           }

@@ -20,17 +20,26 @@ const requestOptions = {
   redirect: "follow",
 };
 
+
+function clearStorage() {
+  let session = sessionStorage.getItem("register");
+  if (session == null) {
+    localStorage.removeItem("choosen");
+  }
+  sessionStorage.setItem("register", 1);
+}
+window.addEventListener("load", clearStorage);
+
+
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
       const Location = localStorage.getItem("choosen");
       userLocation(Location);
-      localStorage.clear()
     } else {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
-        console.log("Current Location");
         currentLocation()
       });
     }
