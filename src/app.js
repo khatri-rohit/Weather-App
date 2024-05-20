@@ -82,11 +82,6 @@ if (date.getHours() < 12) {
   }
 })();
 
-function unload(event) {
-  localStorage.removeItem("choosen");
-}
-window.addEventListener('beforeunload',unload)
-
 function setTime(time, arr) {
   var noon;
   noon = "am";

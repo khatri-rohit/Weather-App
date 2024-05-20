@@ -19,7 +19,7 @@ const requestOptions = {
   headers: myHeaders,
   redirect: "follow",
 };
-
+localStorage.clear();
 (async () => {
   try {
     if (localStorage.getItem("choosen")) {
@@ -37,11 +37,6 @@ const requestOptions = {
     console.error(error + " Not getting Location ");
   }
 })();
-
-function unload(event) {
-  localStorage.removeItem("choosen");
-}
-window.addEventListener('beforeunload',unload)
 
 async function userLocation(local) {
   try {

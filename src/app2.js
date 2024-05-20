@@ -31,14 +31,7 @@ const requestOptions = {
   redirect: "follow",
 };
 
-function clearStorage() {
-  let session = sessionStorage.getItem("register");
-  if (session == null) {
-    localStorage.removeItem("choosen");
-  }
-  sessionStorage.setItem("register", 1);
-}
-window.addEventListener("load", clearStorage);
+localStorage.clear();
 
 (async () => {
   try {
@@ -50,19 +43,12 @@ window.addEventListener("load", clearStorage);
         localStorage.setItem("lati", pos.coords.latitude);
         localStorage.setItem("long", pos.coords.longitude);
         currentLocation();
-        localStorage.clear();
       });
     }
   } catch (error) {
     console.error(error + " Not getting Location ");
   }
 })();
-
-
-function unload(event) {
-  localStorage.removeItem("choosen");
-}
-window.addEventListener('beforeunload',unload)
 
 function setTime(time, arr, awai) {
   var noon;
