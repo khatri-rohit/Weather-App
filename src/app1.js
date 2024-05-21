@@ -33,10 +33,6 @@ input.addEventListener("keyup", async () => {
         plac[key].innerHTML = element.description;
         plac.forEach((place) => {
           place.addEventListener("click", getPlace(place.textContent));
-          form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            getPlace(place.textContent);
-          });
         });
       }
     }
