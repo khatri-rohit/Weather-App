@@ -27,7 +27,15 @@ body {
 }
 
 .search {
-  border: 2px white solid;
+  border: 1px white solid;
+}
+
+form{
+  width: 55vw;
+}
+
+.btn > i {
+  padding: 0.2em;
 }
 
 input {
@@ -35,9 +43,10 @@ input {
   border: none;
   width: 100%;
   outline: none;
-  font-size: 1.5em;
-  text-indent: 0.51em;
+  font-size: 1.2em;
   color: #1679ab;
+  padding: 0;
+  margin: 0;
 }
 
 ::placeholder {
@@ -49,7 +58,8 @@ input {
   background-color: white;
   position: absolute;
   width: 38%;
-  left: 31.5%;
+  top: 9%;
+  left: 21%;
   right: auto;
   padding: 1em;
   display: none;
