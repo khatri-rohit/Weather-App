@@ -172,9 +172,7 @@ async function userLocation(local) {
       arr++;
     });
   } catch (error) {
-    if (error) {
-      console.log(error + " <>");
-    }
+    localStorage.clear()
     alert(
       `Status :- 429 Too Many Requests\nAPI key limit reached wait here or try again later.`
     );
