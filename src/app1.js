@@ -32,6 +32,7 @@ input.addEventListener("keyup", async () => {
         const plac = document.querySelectorAll(".place");
         plac[key].innerHTML = element.description;
         plac.forEach((place) => {
+          console.log(place.textContent);
           place.addEventListener("click", () => {
             localStorage.setItem("choosen", place.textContent);
             location.href = "index.html";
